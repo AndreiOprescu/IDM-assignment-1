@@ -1,5 +1,6 @@
 package tudelft.wis.idm_tasks.basicJDBC.interfaces;
 
+import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -17,7 +18,7 @@ public interface JDBCManager {
      * @throws SQLException           the SQL exception
      * @throws ClassNotFoundException the class not found exception
      */
-    public Connection getConnection() throws SQLException, ClassNotFoundException;
+    public Connection getConnection() throws SQLException, ClassNotFoundException, FileNotFoundException;
         // @TODO: Implement this method.
 
 }

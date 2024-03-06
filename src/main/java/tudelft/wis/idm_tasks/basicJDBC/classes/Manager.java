@@ -1,15 +1,21 @@
+package tudelft.wis.idm_tasks.basicJDBC.classes;
 
-public static class JDBCManager implements JDBCManager {
+import tudelft.wis.idm_tasks.basicJDBC.interfaces.*;
+import java.io.*;
+import java.sql.*;
+import java.util.Scanner;
 
-    public static Connection getConnection() throws SQLException, ClassNotFoundException {
+
+public class Manager implements JDBCManager {
+    public static void main(String[] args) throws SQLException, FileNotFoundException, ClassNotFoundException {
+        new Manager().getConnection();
+    }
+
+    public Connection getConnection() throws SQLException, ClassNotFoundException, FileNotFoundException {
 
         String jdbcUrl = "jdbc:postgresql://localhost:5432/idm_imdb";
         String username = "postgres";
-        String password;
-
-        Object o = new JSONParser().parse(new FileReader(File.json));
-        JSONObject j = (JSONObject) o;
-        password = (String) j.get("password");
+        String password = new Scanner(new FileReader("config.txt")).next();
 
         // Register the PostgreSQL driver
 
