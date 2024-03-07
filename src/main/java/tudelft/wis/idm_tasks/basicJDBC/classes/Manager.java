@@ -15,7 +15,7 @@ public class Manager implements JDBCManager {
 
         String jdbcUrl = "jdbc:postgresql://localhost:5432/idm_imdb";
         String username = "postgres";
-        String password = new Scanner(new FileReader("config.txt")).next();
+        String password = new Scanner(new FileReader("src/main/java/tudelft/wis/idm_tasks/basicJDBC/classes/config.txt")).next();
 
         // Register the PostgreSQL driver
 
