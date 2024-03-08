@@ -3,4 +3,4 @@
 /db/bggt.duckdb
 /db/bggt.duckdb.wal
 /nbproject/
-src/main/java/tudelft.wis/idm_tasks/basicJDBC/classes/config.txt
+config.*
