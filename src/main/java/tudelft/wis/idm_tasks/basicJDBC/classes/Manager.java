@@ -7,15 +7,11 @@ import java.util.Scanner;
 
 
 public class Manager implements JDBCManager {
-    public static void main(String[] args) throws SQLException, FileNotFoundException, ClassNotFoundException {
-        new Manager().getConnection();
-    }
-
     public Connection getConnection() throws SQLException, ClassNotFoundException, FileNotFoundException {
-
-        String jdbcUrl = "jdbc:postgresql://localhost:5432/idm_imdb";
+        Scanner configs = new Scanner(new FileReader("src/main/java/tudelft/wis/idm_tasks/basicJDBC/classes/config.txt"));
+        String jdbcUrl = "jdbc:postgresql://localhost:5432/" + configs.nextLine();
         String username = "postgres";
-        String password = new Scanner(new FileReader("src/main/java/tudelft/wis/idm_tasks/basicJDBC/classes/config.txt")).next();
+        String password = configs.nextLine();
 
         // Register the PostgreSQL driver
 
