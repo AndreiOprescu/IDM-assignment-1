@@ -7,6 +7,7 @@ import tudelft.wis.idm_tasks.boardGameTracker.interfaces.BoardGame;
 import tudelft.wis.idm_tasks.boardGameTracker.interfaces.PlaySession;
 import tudelft.wis.idm_tasks.boardGameTracker.interfaces.Player;
 
+import java.sql.SQLException;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -67,7 +68,8 @@ public abstract class AbstractBGTDemo {
      * @return collection of the play sessions
      * @throws BgtException the bgt exception
      */
-    public Collection<PlaySession> createDummyData(int numOfPlayers, int numOfSessions) throws BgtException {
+    public Collection<PlaySession> createDummyData(int numOfPlayers, int numOfSessions)
+            throws BgtException, SQLException {
         Collection<PlaySession> sessions = new LinkedList<PlaySession>();
         Collection<Player> players = new LinkedList<Player>();
         Collection<BoardGame> games = new LinkedList<BoardGame>();

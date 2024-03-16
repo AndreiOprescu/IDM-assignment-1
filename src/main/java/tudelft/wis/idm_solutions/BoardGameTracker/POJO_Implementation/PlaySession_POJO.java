@@ -16,7 +16,7 @@ import tudelft.wis.idm_tasks.boardGameTracker.interfaces.Player;
  *
  * @author Christoph Lofi, Alexandra Neagu
  */
-public class PlaySession_POJO implements PlaySession {
+public class  PlaySession_POJO implements PlaySession {
 
     private Date date;
     private Player host;
