@@ -161,18 +161,30 @@ public class DataManager implements BgtDataManager {
         String searchString = "%" + name + "%";
         query.setString(1, searchString);
         ResultSet result = query.executeQuery();
+        connection.commit();
         List<Player> resultList = new ArrayList<>();
-        while(result.next()) {
-            long playerId = result.getLong("player_id");;
+        while (result.next()) {
+            long playerId = result.getLong("player_id");
             String playerName = result.getString("name");
             String playerNickname = result.getString("nickname");
             PersistentPlayer player = new PersistentPlayer(playerName, playerNickname);
             player.setId(playerId);
             resultList.add(player);
-        }
 
-        query.close();
-//        connection.close();
+            // Retrieve games owned by the player
+            PreparedStatement gamesOwned = connection.prepareStatement(
+                    "SELECT boardgame_id FROM player_owns_game WHERE player_id = ?");
+            gamesOwned.setLong(1, playerId);
+            ResultSet ownedSet = gamesOwned.executeQuery();  // Use gamesOwned here
+            while (ownedSet.next()) {
+                long gameId = ownedSet.getLong(1);
+                BoardGame gameOwned = fetchGameById(gameId);
+                player.addGame(gameOwned);
+            }
+            ownedSet.close();  // Close the ResultSet for gamesOwned
+            gamesOwned.close();  // Close the PreparedStatement for gamesOwned
+        }
+        query.close();  // Close the PreparedStatement for the initial query
         return resultList;
     }
 
@@ -288,6 +300,14 @@ public class DataManager implements BgtDataManager {
         statement.setLong(5, ((PersistentPlayer) winner).getId());
 
         ResultSet results = statement.executeQuery();
+        connection.commit();
+//        statement.close();
+
+        PreparedStatement addGameHost = connection.prepareStatement("INSERT INTO player_owns_game (player_id, boardgame_id) VALUES (?, ?)");
+        addGameHost.setLong(1, ((PersistentPlayer) host).getId());
+        addGameHost.setLong(2, ((PersistentBoardGame) game).getId());
+
+        addGameHost.executeUpdate();
         connection.commit();
 
         results.next();

@@ -92,4 +92,8 @@ public class PersistentPlayer implements Player {
     public void setId(long id) {
         this.id = id;
     }
+
+    public void addGame(BoardGame game) {
+        boardgames.add(game);
+    }
 }
